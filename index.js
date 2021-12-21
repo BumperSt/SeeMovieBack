@@ -6,7 +6,6 @@ const fs = require('fs')
 const path = require('path')
 const isDev = require('electron-is-dev')
 const { ipcMain } = require('electron')
-const express = require('./streamMovie')
 const streamMovie = require('./newStream')
 
 
@@ -19,6 +18,8 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    autoHideMenuBar: true,
+
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -28,14 +29,15 @@ function createWindow() {
   })
  
   // mainWindow.loadFile(
-  //   'build/index.html'
+  //   'src/index.html'
   // )
+
   mainWindow.loadURL('http://localhost:3000/');
   streamMovie.Start(mainWindow)
   
-  if (isDev) {
-    mainWindow.webContents.openDevTools()
-  }
+  // if (isDev) {
+  //   mainWindow.webContents.openDevTools()
+  // }
 
   mainWindow.on('closed', () => {
     mainWindow = null

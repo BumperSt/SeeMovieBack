@@ -28,9 +28,11 @@ const StreamSubTitle = (file, movieObject, torrentObject, mainWindow) => {
 }
 
 const Start = (mainWindow, ipcMain, app) => {    
+
     ipcMain.handle('selectSubtitle', (evt, sub) => {
         let name = sub.filename
         let subFilePath = `${MovieFolderName}/` + actualFile.path.split('\\')[0] + "/subs/"
+        let subUrl =  (Math.random() + 1).toString(36).substring(4)
 
         if (!fs.existsSync(subFilePath)){
             fs.mkdirSync(subFilePath);
@@ -42,7 +44,7 @@ const Start = (mainWindow, ipcMain, app) => {
         fs.access(subFilePath, (err) => {
 
             if (!err) {
-                mainWindow.webContents.send('getSubtitles', torrentObject.hash)
+                mainWindow.webContents.send('setSubUrl', subUrl)
             }else{
                 const subFile = fs.createWriteStream(subFilePath);
                 const request = https.get(sub.utf8, function(response) {
@@ -52,17 +54,42 @@ const Start = (mainWindow, ipcMain, app) => {
                             .pipe(srt2vtt())
                             .pipe(fs.createWriteStream(vttPath))
                     })
-                    mainWindow.webContents.send('getSubtitles', torrentObject.hash)
+                    mainWindow.webContents.send('setSubUrl', subUrl)
                 });
             }
 
-            app.use(`/sub/${torrentObject.hash}`,  (req, res) => {
+            app.use(`/sub/${subUrl}`,  (req, res) => {
                 subArquive = fs.createReadStream(vttPath)
                 subArquive.pipe(res)
             })
             
         });   
         
+    })
+
+    ipcMain.handle('selectMySub', (evt, subFilePath) => {
+        let fileName = subFilePath.split('\\')
+        let vttPath =  `${MovieFolderName}/` + actualFile.path.split('\\')[0] + "/subs/" + fileName[fileName.length -1].replace('str', 'vtt')
+        let subUrl =  (Math.random() + 1).toString(36).substring(4)
+
+
+        let movieSubsPath = `${MovieFolderName}/` + actualFile.path.split('\\')[0] + "/subs/"
+
+        if (!fs.existsSync(movieSubsPath)){
+            fs.mkdirSync(movieSubsPath);
+        }
+
+        fs.createReadStream(subFilePath)
+            .pipe(srt2vtt())
+            .pipe(fs.createWriteStream(vttPath))
+
+        app.use(`/sub/${subUrl}`,  (req, res) => {
+            subArquive = fs.createReadStream(vttPath)
+            subArquive.pipe(res)
+        })
+
+        mainWindow.webContents.send('setSubUrl', subUrl)
+
     })
 }
 

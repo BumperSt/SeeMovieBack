@@ -10,6 +10,8 @@
 
 # production
 /build
+/movies
+
 
 # misc
 .DS_Store

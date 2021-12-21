@@ -48,7 +48,8 @@ const Start = (mainWindow) => {
     
     
     ipcMain.handle('StartTorrent', (evt, object) => {
-    
+        let RandomMovieUrl = (Math.random() + 1).toString(36).substring(4);
+        console.log(RandomMovieUrl)
         movieObject = object.movieObject
         torrentObject = object.myTorrent
         let initialSize = 0
@@ -72,11 +73,11 @@ const Start = (mainWindow) => {
                             'totalSize' : file.length,
                             'percentDownload' :  initialSize + engine.swarm.downloaded,
                             'downloadSpeed' : engine.swarm.downloadSpeed(),
-                            'hash' : torrentObject.hash
+                            'movieUrl' : RandomMovieUrl
                         })
                     }
 
-                    StreaMovieFile(file, engine,torrentObject)
+                    StreaMovieFile(file, engine,RandomMovieUrl)
                     streamSubTitle.StreamSubTitle(file, movieObject, torrentObject, mainWindowHere)
                 }else{
     
@@ -98,7 +99,7 @@ const Start = (mainWindow) => {
                         'percentDownload' :  initialSize + engine.swarm.downloaded,
                         'downloadSpeed' : engine.swarm.downloadSpeed(),
                         'totalSize' : file.length,
-                        'hash' : torrentObject.hash
+                        'movieUrl' : RandomMovieUrl
 
                 
                     })
@@ -120,8 +121,8 @@ const Start = (mainWindow) => {
     
     }
     
-    const StreaMovieFile = (file, engine, torrentObject) => {
-        app.use(`/movie/${torrentObject.hash}`, function (req, res) {
+    const StreaMovieFile = (file, engine, RandomMovieUrl) => {
+        app.use(`/movie/${RandomMovieUrl}`, function (req, res) {
             // Ensure there is a range given for the video
             const range = req.headers.range;
             // const start = Number(req.query.StartTime)

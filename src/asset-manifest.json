@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "./static/css/main.67c8e4ff.chunk.css",
+    "main.js": "./static/js/main.87acb252.chunk.js",
+    "main.js.map": "./static/js/main.87acb252.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.34df6c85.js",
+    "runtime-main.js.map": "./static/js/runtime-main.34df6c85.js.map",
+    "static/js/2.c3becf5b.chunk.js": "./static/js/2.c3becf5b.chunk.js",
+    "static/js/2.c3becf5b.chunk.js.map": "./static/js/2.c3becf5b.chunk.js.map",
+    "index.html": "./index.html",
+    "static/css/main.67c8e4ff.chunk.css.map": "./static/css/main.67c8e4ff.chunk.css.map",
+    "static/js/2.c3becf5b.chunk.js.LICENSE.txt": "./static/js/2.c3becf5b.chunk.js.LICENSE.txt",
+    "static/media/FavIcon.9653a267.svg": "./static/media/FavIcon.9653a267.svg",
+    "static/media/LeftCarrousel.71598f36.svg": "./static/media/LeftCarrousel.71598f36.svg",
+    "static/media/RigthCarrousel.22acccc5.svg": "./static/media/RigthCarrousel.22acccc5.svg",
+    "static/media/TrailerIcon.0dc1833c.svg": "./static/media/TrailerIcon.0dc1833c.svg",
+    "static/media/search.6095cc55.svg": "./static/media/search.6095cc55.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.34df6c85.js",
+    "static/js/2.c3becf5b.chunk.js",
+    "static/css/main.67c8e4ff.chunk.css",
+    "static/js/main.87acb252.chunk.js"
+  ]
+}
